@@ -1,8 +1,8 @@
 from PIL import Image
 
-def filtro_prewitt(imagem):
-    # filtro = [[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]]
-    filtro = [[-1, -1, -1], [0, 0, 0], [1, 1, 1]]
+def filtro_sobel(imagem):
+    filtro = [[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]]
+    # filtro = [[-1, -2, -1], [0, 0, 0], [1, 2, 1]]
     imagem_saida = Image.new("L", imagem.size)
     for x in range(1, imagem.width - 1):
         for y in range(1, imagem.height - 1):
@@ -15,8 +15,4 @@ def filtro_prewitt(imagem):
 
 if __name__ == "__main__":
     imagem_original = Image.open("lena_gray.bmp")
-    filtro_prewitt(imagem_original).save("questao1/bordas/prewitt_hor.jpg")
-
-
-    # imagem_hor = Image.open("questao1/bordas/prewitt_hor.jpg")
-    # imagem_ver = Image.open("questao1/bordas/prewitt_vert.jpg")
+    filtro_sobel(imagem_original).save("questao1/bordas/sobel_ver.jpg")

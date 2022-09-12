@@ -1,23 +1,21 @@
 from PIL import Image
 
-def mascara_media(image, mascara):
+def filtro_media(imagem, mascara):
     n = 0
 
     for mascara_i in range(len(mascara)):
         for mascara_j in range(len(mascara[0])):
             n += mascara[mascara_i][mascara_j] 
 
-    imagem_saida = Image.new("L", image.size)
+    imagem_saida = Image.new("L", imagem.size)
 
-    px = imagem_saida.load()
-
-    for x in range(1, image.width - 1):
-        for y in range(1, image.height - 1):
+    for x in range(1, imagem.width - 1):
+        for y in range(1, imagem.height - 1):
             sum = 0
             for i in range(3):
                 for j in range(3):
-                    sum += image.getpixel((x + i - 1, y + j - 1)) * mascara[i][j]
-            px[x, y] = int (sum / n)
+                    sum += imagem.getpixel((x + i - 1, y + j - 1)) * mascara[i][j]
+            imagem_saida.putpixel((x, y), int (sum / 9))
 
     return imagem_saida
 
@@ -28,14 +26,13 @@ def mediana(lista):
     else:
         return lista[len(lista) // 2]
 
-def mascara_mediana(image):
-    imagem_saida = Image.new("L", image.size)
+def filtro_mediana(imagem):
+    imagem_saida = Image.new("L", imagem.size)
     
-    px = image.load()
-    px_saida = imagem_saida.load()
+    px = imagem.load()
 
-    for x in range(1, image.width - 1):
-        for y in range(1, image.height - 1):
+    for x in range(1, imagem.width - 1):
+        for y in range(1, imagem.height - 1):
             lista = []
             for i in range(3):
                 for j in range(3):
@@ -46,16 +43,16 @@ def mascara_mediana(image):
 
 
 if __name__ == "__main__":
-    image = Image.open("lena_ruido.bmp")
+    imagem = Image.open("lena_ruido.bmp")
 
-    # mascara = [[0, 1, 0], [1, 1, 1], [0, 1, 0]]
+    mascara = [[0, 1, 0], [1, 1, 1], [0, 1, 0]]
     # mascara = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
     # mascara = [[1, 3, 1], [3, 16, 3], [1, 3, 1]]
     # mascara = [[0, 1, 0], [1, 4, 1], [0, 1, 0]]
 
-    # imagem_media = mascara_media(image, mascara)
-    # imagem_media.save("questao2/media-8.jpg")
+    imagem_media = filtro_media(imagem, mascara)
+    imagem_media.save("questao2/media-5.jpg")
 
-    # imagem_suavizada = Image.open("questao2/mediana3x.jpg")
-    # imagem_mediana = mascara_mediana(imagem_suavizada)
-    # imagem_mediana.save("questao2/mediana4x.jpg")
+    # imagem_suavizada = Image.open("questao2/media-32.jpg")
+    # imagem_mediana = filtro_media(imagem_suavizada, mascara)
+    # imagem_mediana.save("questao2/media-32-2x.jpg")

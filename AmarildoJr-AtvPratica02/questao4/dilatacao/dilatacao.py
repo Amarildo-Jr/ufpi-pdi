@@ -2,7 +2,7 @@ from PIL import Image
 
 import sys
 sys.path.insert(0, "questao3")
-from operacoes_morfologicas import diferenca
+# from operacoes_morfologicas import diferenca
 
 def max_intensidade(imagem):
     max = 0
@@ -12,14 +12,14 @@ def max_intensidade(imagem):
                 max = imagem.getpixel((x, y))
     return max
 
-def dilatacao(image, elemento_estruturante, centro):
-    imagem_saida = Image.new("L", image.size)
+def dilatacao(imagem, elemento_estruturante, centro):
+    imagem_saida = Image.new("L", imagem.size)
 
-    intensidade_max = max_intensidade(image)
+    intensidade_max = max_intensidade(imagem)
 
     for x in range(imagem_saida.width):
         for y in range(imagem_saida.height):
-            if(image.getpixel((x, y)) == intensidade_max):
+            if(imagem.getpixel((x, y)) == intensidade_max):
                 for i in range(len(elemento_estruturante)):
                     for j in range(len(elemento_estruturante[i])):
                         if(elemento_estruturante[i][j] == 1):
